@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mycityapp.R
 import com.example.mycityapp.ui.data.VisitingPlaces
+import com.example.mycityapp.ui.theme.MyCityAppTheme
 
 
 @Composable
@@ -47,15 +48,20 @@ fun DetailScreen(
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(it).fillMaxWidth()
+            modifier = Modifier
+                .padding(it)
+                .fillMaxWidth()
         ) {
             Image(painter = painterResource(selectedPlace.img),
                 contentDescription = selectedPlace.name,
-                modifier = modifier.padding(8.dp).fillMaxWidth(),
+                modifier = modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
             Text(text = selectedPlace.name,
                 style = MaterialTheme.typography.displayLarge,
+
                 modifier = modifier.padding(start = 8.dp, bottom = 4.dp)
             )
             Text(text = selectedPlace.category,
@@ -77,17 +83,20 @@ fun DetailScreen(
 @Preview
 @Composable
 fun DetailScreenPreview() {
-    DetailScreen(
-        onBackButtonClick = {},
-        selectedPlace = VisitingPlaces(
-            img = R.drawable.birlamandir,
-            name = "Jantar Mantar",
-            category = "pata ni",
-            description = "Nice Place. Must Visit."
-        ),
-        onMenuClick = {},
-        expanded= true,
-        onCafeButtonClick = {},
-        screenType = MyCityScreen.DetailScreen
-    )
+    MyCityAppTheme {
+        DetailScreen(
+            onBackButtonClick = {},
+            selectedPlace = VisitingPlaces(
+                img = R.drawable.birlamandir,
+                name = "Jantar Mantar",
+                category = "pata ni",
+                description = "Nice Place. Must Visit."
+            ),
+            onMenuClick = {},
+            expanded= true,
+            onCafeButtonClick = {},
+            screenType = MyCityScreen.DetailScreen
+        )
+    }
+
 }

@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mycityapp.R
+import com.example.mycityapp.ui.data.DataSource.coffeeShopsList
 import com.example.mycityapp.ui.model.CityViewModel
 import com.example.mycityapp.ui.theme.MyCityAppTheme
 
@@ -82,7 +83,8 @@ fun MyCityApp(
                 screenType = MyCityScreen.CafeScreen,
                 onBackButtonClick = { navController.popBackStack()
                                     viewModel.expandMenuItem(uiState.expanded)},
-                onMenuClick = { viewModel.expandMenuItem(uiState.expanded)}
+                onMenuClick = { viewModel.expandMenuItem(uiState.expanded)},
+                coffeeShopsList = coffeeShopsList
             )
         }
     }
