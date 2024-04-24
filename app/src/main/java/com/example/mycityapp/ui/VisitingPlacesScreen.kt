@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,11 +29,18 @@ import com.example.mycityapp.ui.data.VisitingPlaces
 import com.example.mycityapp.ui.data.VisitingPlacesRepository.visitingPlaces
 import com.example.mycityapp.ui.theme.MyCityAppTheme
 
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
     @StringRes title: Int,
-    onBackButtonClick: () -> Unit
+    onBackButtonClick: () -> Unit,
+    expanded: Boolean,
+    onMenuClick: () -> Unit,
+    onCafeButtonClick:() -> Unit,
+    screenType: MyCityScreen
+
 ) {
     TopAppBar(
         title = {
@@ -45,9 +54,30 @@ fun TopBar(
             }
         },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Filled.Menu, contentDescription = "")
+            if (screenType == MyCityScreen.VisitingPlaces || screenType == MyCityScreen.DetailScreen ){
+                IconButton(
+                    onClick =  onMenuClick
+                ) {
+                    Icon(imageVector = Icons.Filled.Menu, contentDescription = "")
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest =  onMenuClick ,
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(text = "Cafe") },
+                            onClick =  onCafeButtonClick
+                        )
+                        DropdownMenuItem(
+                            text = { Text(text = "Restaurant") },
+                            onClick = { /*TODO*/ }
+                        )
+                        DropdownMenuItem(text = { Text(text = "Parks") },
+                            onClick = { /*TODO*/ })
+                    }
+                }
             }
+
+
         }
 
     )
@@ -75,13 +105,21 @@ fun VisitingPlacesItem(
 fun VisitingPlacesScreen(
     //selectedPlaces: VisitingPlaces,
     onClick: (VisitingPlaces) -> Unit,
-    onBackButtonClick: () -> Unit
+    onBackButtonClick: () -> Unit,
+    onMenuClick: () -> Unit,
+    expanded: Boolean,
+    onCafeButtonClick: () -> Unit,
+    screenType: MyCityScreen
 ) {
     Scaffold(
         topBar = {
             TopBar(
                 title = R.string.visiting_places,
-                onBackButtonClick = onBackButtonClick
+                onBackButtonClick = onBackButtonClick,
+                onMenuClick = onMenuClick,
+                expanded = expanded,
+                onCafeButtonClick = onCafeButtonClick,
+                screenType = screenType
             )
         }
     ) {
@@ -104,6 +142,10 @@ fun VisitingPlacesPreview() {
         VisitingPlacesScreen(
             onBackButtonClick = {},
             onClick = {},
+            expanded = true,
+            onMenuClick = {},
+            onCafeButtonClick = {},
+            screenType = MyCityScreen.VisitingPlaces
 
         )
     }

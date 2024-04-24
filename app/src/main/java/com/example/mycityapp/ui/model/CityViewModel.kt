@@ -13,7 +13,9 @@ class CityViewModel: ViewModel() {
         placesList = visitingPlaces,
         currentPlace = visitingPlaces.getOrElse(0) {
             visitingPlaces[0]
-        }
+        },
+        expanded = false
+
     ))
     val uiState:StateFlow<CityUiState> = _uiState
 
@@ -21,6 +23,14 @@ class CityViewModel: ViewModel() {
         _uiState.update {
             it.copy(
                 currentPlace = currentPlace
+            )
+        }
+    }
+
+    fun expandMenuItem(expanded: Boolean){
+        _uiState.update {
+            it.copy(
+                expanded = !expanded
             )
         }
     }

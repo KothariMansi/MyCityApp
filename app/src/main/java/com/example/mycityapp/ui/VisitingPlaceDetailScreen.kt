@@ -26,13 +26,22 @@ import com.example.mycityapp.ui.data.VisitingPlaces
 fun DetailScreen(
     selectedPlace: VisitingPlaces,
     onBackButtonClick: () -> Unit,
+    onMenuClick: () -> Unit,
+    expanded: Boolean,
+    onCafeButtonClick: () -> Unit,
+    screenType: MyCityScreen,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
             TopBar(
                 title = R.string.detail,
-                onBackButtonClick = onBackButtonClick
+                onBackButtonClick = onBackButtonClick,
+                expanded = expanded,
+                onMenuClick = onMenuClick,
+                onCafeButtonClick = onCafeButtonClick,
+                screenType = screenType
+
             )
         }
     ) {
@@ -75,6 +84,10 @@ fun DetailScreenPreview() {
             name = "Jantar Mantar",
             category = "pata ni",
             description = "Nice Place. Must Visit."
-        )
+        ),
+        onMenuClick = {},
+        expanded= true,
+        onCafeButtonClick = {},
+        screenType = MyCityScreen.DetailScreen
     )
 }

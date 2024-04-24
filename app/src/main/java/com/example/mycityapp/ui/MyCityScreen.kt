@@ -30,7 +30,8 @@ import com.example.mycityapp.ui.theme.MyCityAppTheme
 enum class MyCityScreen{
     Start,
     VisitingPlaces,
-    DetailScreen
+    DetailScreen,
+    CafeScreen
 
 }
 
@@ -41,10 +42,11 @@ fun MyCityApp(
     val viewModel: CityViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
     NavHost(navController = navController, startDestination = MyCityScreen.Start.name) {
+
+
         composable(MyCityScreen.Start.name){
             StarterScreen(
                 onButtonPressed = { navController.navigate(MyCityScreen.VisitingPlaces.name) },
-                //selectedPlaces = uiState.currentPlace
             )
         }
 
@@ -55,14 +57,32 @@ fun MyCityApp(
                     viewModel.updateCurrentPlace(currentPlace = it)
                     navController.navigate(MyCityScreen.DetailScreen.name)
                 },
-                onBackButtonClick =  { navController.popBackStack() }
+                onBackButtonClick =  { navController.popBackStack() },
+                expanded = uiState.expanded,
+                onMenuClick = { viewModel.expandMenuItem(uiState.expanded) },
+                onCafeButtonClick = { navController.navigate(MyCityScreen.CafeScreen.name) },
+                screenType = MyCityScreen.VisitingPlaces
             )
         }
 
         composable(MyCityScreen.DetailScreen.name) {
             DetailScreen(
                 selectedPlace = uiState.currentPlace,
-                onBackButtonClick = { navController.popBackStack() }
+                onBackButtonClick = { navController.popBackStack() },
+                expanded = uiState.expanded,
+                onMenuClick = { viewModel.expandMenuItem(uiState.expanded) },
+                onCafeButtonClick = { navController.navigate(MyCityScreen.CafeScreen.name) },
+                screenType = MyCityScreen.DetailScreen
+            )
+        }
+
+        composable(MyCityScreen.CafeScreen.name){
+            CafeScreen(
+                expanded = uiState.expanded,
+                screenType = MyCityScreen.CafeScreen,
+                onBackButtonClick = { navController.popBackStack()
+                                    viewModel.expandMenuItem(uiState.expanded)},
+                onMenuClick = { viewModel.expandMenuItem(uiState.expanded)}
             )
         }
     }
