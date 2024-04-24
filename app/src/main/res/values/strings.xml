@@ -2,5 +2,7 @@
     <string name="app_name">MyCityApp</string>
     <string name="jaipur">JAIPUR</string>
     <string name="let_s_visit">Let\'s Visit</string>
+    <string name="visiting_places">Visiting Places</string>
+    <string name="detail">Detail</string>
 
 </resources>
