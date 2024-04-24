@@ -36,8 +36,18 @@ object VisitingPlacesRepository{
             name = "Birla Mandir Temple",
             category = "Temple",
             description = "The three huge domes of the temple represent three different approaches to the religion."
-        )
+        ),
+        VisitingPlaces(
+            img = R.drawable.mukesh_art_gallery,
+            name = "Mukesh Art Gallery",
+            category = "Art Galleries",
+            description = " Mukesh Art Gallery was born out of a vision to patronize the exceptionally talented local artists."+
+                    " Established in 2000 by Mr. Mukeshji Gupta who himself is an avid collector and connoisseur of art, the gallery currently works with over hundreds of " +
+                    "artists and owns a curated collection of more than 14,000 awe-inspiring, exquisitely framed paintings in different styles and mediums" +
+                    " which are thoughtfully displayed in an area of about 16,000 sq.ft." +
+                    " Besides this, the gallery also has a section of alluring handicrafts and marble articles along with framed museum quality prints."
 
+        )
 
     )
 

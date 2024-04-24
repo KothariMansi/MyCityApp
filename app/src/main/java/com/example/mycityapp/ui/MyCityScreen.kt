@@ -1,10 +1,12 @@
 package com.example.mycityapp.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +23,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mycityapp.R
-import com.example.mycityapp.ui.data.VisitingPlaces
 import com.example.mycityapp.ui.model.CityViewModel
 import com.example.mycityapp.ui.theme.MyCityAppTheme
 
@@ -93,8 +94,11 @@ fun StarterScreen(
         )
         Spacer(modifier = modifier.padding(16.dp))
 
-        Button(onClick = { onButtonPressed() }) {
-            Text(text = stringResource(R.string.let_s_visit))
+        Button(onClick = { onButtonPressed() }
+        ) {
+            Text(text = stringResource(R.string.let_s_visit),
+                style = MaterialTheme.typography.labelMedium,
+                )
         }
 
     }
