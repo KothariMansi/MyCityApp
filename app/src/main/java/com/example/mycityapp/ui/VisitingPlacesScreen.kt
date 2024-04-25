@@ -183,6 +183,7 @@ fun VisitingPlacesScreen(
     }
 }
 
+
 @Preview
 @Composable
 fun VisitingPlacesPreview() {
