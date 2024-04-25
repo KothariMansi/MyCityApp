@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mycityapp.MyCityScreen
 import com.example.mycityapp.R
+import com.example.mycityapp.WindowSize
 import com.example.mycityapp.ui.data.DataSource.coffeeShopsList
 import com.example.mycityapp.ui.model.Recommendations.CoffeeShops
 import com.example.mycityapp.ui.theme.MyCityAppTheme
@@ -25,7 +27,7 @@ fun CafeScreen(
     screenType: MyCityScreen,
     onBackButtonClick: () -> Unit,
     onMenuClick: () -> Unit,
-    coffeeShopsList : List<CoffeeShops>
+    coffeeShopsList : List<CoffeeShops>,
 ) {
     Scaffold(
         topBar = {
@@ -35,7 +37,8 @@ fun CafeScreen(
                 expanded = expanded,
                 onMenuClick = onMenuClick,
                 onCafeButtonClick = {},
-                screenType = screenType
+                screenType = screenType,
+                //contentType = contentType
             )
         }
 
@@ -103,7 +106,7 @@ fun CafeScreenPreview() {
             screenType = MyCityScreen.CafeScreen,
             onBackButtonClick = { },
             onMenuClick = { },
-            coffeeShopsList = coffeeShopsList
+            coffeeShopsList = coffeeShopsList,
         )
     }
 }

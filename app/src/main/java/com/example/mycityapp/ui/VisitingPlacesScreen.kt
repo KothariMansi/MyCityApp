@@ -2,6 +2,10 @@ package com.example.mycityapp.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,7 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mycityapp.MyCityScreen
 import com.example.mycityapp.R
+import com.example.mycityapp.WindowSize
 import com.example.mycityapp.ui.data.VisitingPlaces
 import com.example.mycityapp.ui.data.VisitingPlacesRepository.visitingPlaces
 import com.example.mycityapp.ui.theme.MyCityAppTheme
@@ -39,7 +45,8 @@ fun TopBar(
     expanded: Boolean,
     onMenuClick: () -> Unit,
     onCafeButtonClick:() -> Unit,
-    screenType: MyCityScreen
+    screenType: MyCityScreen,
+
 
 ) {
     TopAppBar(
@@ -47,11 +54,13 @@ fun TopBar(
                 Text(text = stringResource(title), style = MaterialTheme.typography.displayMedium)
         },
         navigationIcon = {
-            IconButton(
-                onClick = { onBackButtonClick() }
-            ) {
-                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
-            }
+                IconButton(
+                    onClick = { onBackButtonClick() }
+                ) {
+                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "")
+                }
+
+
         },
         actions = {
             if (screenType == MyCityScreen.VisitingPlaces || screenType == MyCityScreen.DetailScreen ){
@@ -77,9 +86,7 @@ fun TopBar(
                 }
             }
 
-
         }
-
     )
 }
 
@@ -102,6 +109,24 @@ fun VisitingPlacesItem(
 }
 
 @Composable
+fun VisitingPacesList(
+    onClick: (VisitingPlaces) -> Unit,
+    contentPaddingValues: PaddingValues,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(
+        contentPadding = contentPaddingValues,
+        modifier = modifier
+    ) {
+        items(visitingPlaces) {visitingPlace->
+            VisitingPlacesItem(name = visitingPlace.name,
+                onClick = { onClick(visitingPlace) }
+            )
+        }
+    }
+}
+
+@Composable
 fun VisitingPlacesScreen(
     //selectedPlaces: VisitingPlaces,
     onClick: (VisitingPlaces) -> Unit,
@@ -109,7 +134,9 @@ fun VisitingPlacesScreen(
     onMenuClick: () -> Unit,
     expanded: Boolean,
     onCafeButtonClick: () -> Unit,
-    screenType: MyCityScreen
+    screenType: MyCityScreen,
+    contentType: WindowSize,
+    selectedPlaces: VisitingPlaces
 ) {
     Scaffold(
         topBar = {
@@ -119,15 +146,36 @@ fun VisitingPlacesScreen(
                 onMenuClick = onMenuClick,
                 expanded = expanded,
                 onCafeButtonClick = onCafeButtonClick,
-                screenType = screenType
+                screenType = screenType,
+               // contentType = contentType
             )
         }
     ) {
-        LazyColumn(contentPadding = it) {
-            items(visitingPlaces) {visitingPlace->
-                VisitingPlacesItem(name = visitingPlace.name,
-                    onClick = { onClick(visitingPlace) }
+        Row(
+            modifier = Modifier.padding(4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier) {
+                VisitingPacesList(
+                    contentPaddingValues = it,
+                    onClick = onClick,
+                    //modifier = Modifier.weight(1f)
                 )
+            }
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                if (contentType == WindowSize.ListAndDetail) {
+                    DetailScreen(
+                        selectedPlace = selectedPlaces,
+                        onBackButtonClick = { },
+                        expanded = expanded,
+                        onMenuClick = onMenuClick,
+                        onCafeButtonClick = onCafeButtonClick,
+                        screenType = screenType,
+                    )
+                }
             }
 
         }
@@ -145,7 +193,14 @@ fun VisitingPlacesPreview() {
             expanded = true,
             onMenuClick = {},
             onCafeButtonClick = {},
-            screenType = MyCityScreen.VisitingPlaces
+            screenType = MyCityScreen.VisitingPlaces,
+            contentType = WindowSize.ListOnly,
+            selectedPlaces = VisitingPlaces(
+                img = R.drawable.birlamandir,
+                name = "Jantar Mantar",
+                category = "Mandir",
+                description = "Nice Place. Must Visit."
+            )
 
         )
     }

@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mycityapp.MyCityScreen
 import com.example.mycityapp.R
 import com.example.mycityapp.ui.data.VisitingPlaces
 import com.example.mycityapp.ui.theme.MyCityAppTheme
@@ -31,7 +32,7 @@ fun DetailScreen(
     expanded: Boolean,
     onCafeButtonClick: () -> Unit,
     screenType: MyCityScreen,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         topBar = {
@@ -89,7 +90,7 @@ fun DetailScreenPreview() {
             selectedPlace = VisitingPlaces(
                 img = R.drawable.birlamandir,
                 name = "Jantar Mantar",
-                category = "pata ni",
+                category = "Mandir",
                 description = "Nice Place. Must Visit."
             ),
             onMenuClick = {},
